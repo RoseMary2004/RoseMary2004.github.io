@@ -908,4 +908,335 @@
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="https
+            <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" class="social-link">💼</a>
+            <a href="mailto:rosemarymathew497@gmail.com" class="social-link">📧</a>
+            <a href="tel:9526220906" class="social-link">📱</a>
+            <a href="#" class="social-link" onclick="downloadResume()">📄</a>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+            © 2025 Rose Mary. All rights reserved.
+        </p>
+        <p style="color: var(--text-secondary); font-size: 0.875rem;">
+            Crafted with ❤️ and lots of coffee
+        </p>
+    </footer>
+
+    <script>
+        // Loading Screen
+        let progress = 0;
+        const loadingInterval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                setTimeout(() => {
+                    document.getElementById('loader').classList.add('hide');
+                    initThreeJS();
+                    initScrollAnimations();
+                }, 500);
+            }
+            document.getElementById('loaderProgress').style.width = progress + '%';
+        }, 100);
+
+        // Three.js Background
+        let scene, camera, renderer, particles;
+
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({canvas: document.getElementById('threejs-bg'), alpha: true});
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create particles
+            const particleCount = 2000;
+            const particleGeometry = new THREE.BufferGeometry();
+            const particlePositions = new Float32Array(particleCount * 3);
+            const particleVelocities = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                particlePositions[i] = (Math.random() - 0.5) * 2000;
+                particlePositions[i + 1] = (Math.random() - 0.5) * 2000;
+                particlePositions[i + 2] = (Math.random() - 0.5) * 2000;
+                
+                particleVelocities[i] = (Math.random() - 0.5) * 0.2;
+                particleVelocities[i + 1] = (Math.random() - 0.5) * 0.2;
+                particleVelocities[i + 2] = (Math.random() - 0.5) * 0.2;
+            }
+
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+            particleGeometry.setAttribute('velocity', new THREE.BufferAttribute(particleVelocities, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                color: 0x6366f1,
+                size: 2,
+                transparent: true,
+                opacity: 0.6
+            });
+
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+
+            camera.position.z = 500;
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (particles) {
+                particles.rotation.x += 0.0005;
+                particles.rotation.y += 0.0005;
+
+                const positions = particles.geometry.attributes.position.array;
+                const velocities = particles.geometry.attributes.velocity.array;
+
+                for (let i = 0; i < positions.length; i += 3) {
+                    positions[i] += velocities[i];
+                    positions[i + 1] += velocities[i + 1];
+                    positions[i + 2] += velocities[i + 2];
+
+                    // Wrap around edges
+                    if (positions[i] > 1000) positions[i] = -1000;
+                    if (positions[i] < -1000) positions[i] = 1000;
+                    if (positions[i + 1] > 1000) positions[i + 1] = -1000;
+                    if (positions[i + 1] < -1000) positions[i + 1] = 1000;
+                    if (positions[i + 2] > 1000) positions[i + 2] = -1000;
+                    if (positions[i + 2] < -1000) positions[i + 2] = 1000;
+                }
+
+                particles.geometry.attributes.position.needsUpdate = true;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+
+            // Hide/show navigation
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(15, 15, 35, 0.95)';
+            } else {
+                nav.style.background = 'transparent';
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile Menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Form Submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            const mailtoLink = `mailto:rosemarymathew497@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            alert('Thank you for your message! Your email client should now open with a pre-filled message.');
+            
+            // Reset form
+            e.target.reset();
+        });
+
+        // Download Resume Function
+        function downloadResume() {
+            // Create a simple resume content as text file
+            const resumeContent = `
+ROSE MARY
+UI/UX Designer
+
+CONTACT INFORMATION
+Email: rosemarymathew497@gmail.com
+Phone: +91 95262 20906
+LinkedIn: www.linkedin.com/in/rose-mary-16729431b
+
+PROFESSIONAL SUMMARY
+Entry-level UI/UX Designer with hands-on project and internship experience in creating user-centered, visually appealing, and functional digital solutions. Skilled in Figma, Adobe Creative Suite, and front-end technologies, with certifications from Google and advanced design training. Passionate about crafting meaningful user experiences that combine creativity with usability.
+
+EDUCATION
+BCA St. Joseph's College, Devagiri (2022-2025)
+
+CERTIFICATIONS
+- Foundation of User Experience (UX), Google (2024)
+- Python Programming with Django, Riss Technologies (2023)
+- Flutter, Maitexa (2023)
+- Figma UI UX Design Advanced, Udemy (2025)
+- Figma UI/UX Mastery, TBH (2025)
+- UI UX Design Pro, Aspira (Bangalore) (2025)
+
+SKILLS
+Design Tools: Figma, Adobe Photoshop, Sketch, InDesign, XD, Premiere Pro, Framer
+Development: HTML, CSS, Flutter
+Core Skills: Wireframing, Prototyping, User Research, Visual Design, Usability Testing
+
+EXPERIENCE
+UI/UX Design Intern – Sesame Technologies Pvt. Ltd., Calicut, Kerala (July 2025)
+- Assisted in designing user-friendly interfaces for web applications
+- Contributed to creating wireframes, prototypes, and design assets under the guidance of the design team
+- Gained exposure to real-world design processes and client requirements
+
+PROJECTS
+SOLVA – Mental Health & Wellness App
+- Designed a mobile app that connects users with verified therapists and provides tools for wellness tracking
+- Created user flows, wireframes, and high-fidelity prototypes focusing on accessibility and ease of use
+- Ensured a consistent brand identity with calming visuals and intuitive navigation
+
+Emergency Fuel Delivery App (In Progress)
+- Designing an app that connects users with nearby verified service providers for on-demand fuel delivery
+- Emphasizing safety, reliability, and convenience with real-time tracking, quick booking, and secure payments
+- Working on user interface and experience design to ensure smooth end-to-end service flow
+
+LANGUAGES
+English | Malayalam | Tamil
+            `;
+
+            // Create and download file
+            const blob = new Blob([resumeContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'Rose_Mary_Resume.txt';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        // Cursor Trail Effect (optional enhancement)
+        let mouseX = 0, mouseY = 0;
+        let trail = [];
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            trail.unshift({x: mouseX, y: mouseY});
+            if (trail.length > 20) trail.pop();
+        });
+
+        // Parallax Effect for Hero Section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // Add interactive hover effects
+        document.querySelectorAll('.project-card, .skill-category, .stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Typing effect for hero title (optional)
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect after loading
+        setTimeout(() => {
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                const originalText = heroTitle.innerHTML;
+                typeWriter(heroTitle, 'Hi, I\'m Rose Mary\nUI/UX Designer', 100);
+            }
+        }, 2000);
+
+        // Add floating animation to hero badge
+        const heroBadge = document.querySelector('.hero-badge');
+        if (heroBadge) {
+            setInterval(() => {
+                heroBadge.style.transform = 'translateY(' + Math.sin(Date.now() / 1000) * 5 + 'px)';
+            }, 16);
+        }
+    </script>
+</body>
+</html>
