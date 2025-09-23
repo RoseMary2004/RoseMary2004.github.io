@@ -7,22 +7,29 @@
     <meta name="description" content="Rose Mary - Entry-level UI/UX Designer crafting meaningful user experiences that combine creativity with usability">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #f59e0b;
-            --accent: #06b6d4;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --bg-primary: #0f0f23;
-            --bg-secondary: #1a1a2e;
-            --bg-card: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
-            --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
-            --gradient-2: linear-gradient(135deg, #f59e0b, #ef4444, #ec4899);
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --warm: #ffeaa7;
+            --cool: #74b9ff;
+            --success: #00b894;
+            --text-dark: #2d3436;
+            --text-medium: #636e72;
+            --text-light: #b2bec3;
+            --bg-light: #f8f9ff;
+            --bg-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --shadow-medium: 0 15px 35px 0 rgba(31, 38, 135, 0.2);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
         }
 
         * {
@@ -33,10 +40,71 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--bg-light);
+            color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-1);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-2);
+            top: 60%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-3);
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .shape-4 {
+            width: 150px;
+            height: 150px;
+            background: var(--gradient-4);
+            top: 30%;
+            right: 30%;
+            animation-delay: 15s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
         }
 
         /* Loading Screen */
@@ -46,7 +114,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: var(--bg-primary);
+            background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -64,8 +132,8 @@
         }
 
         .loader-text {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
             font-weight: 600;
             background: var(--gradient-1);
             -webkit-background-clip: text;
@@ -75,99 +143,72 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        .loader-bar {
-            width: 300px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(102, 126, 234, 0.1);
+            border-left: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
             margin: 0 auto;
         }
 
-        .loader-progress {
-            height: 100%;
-            background: var(--gradient-1);
-            width: 0;
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-
-        /* Three.js Background */
-        #threejs-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Navigation */
         .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 2rem;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            transition: transform 0.3s ease;
-        }
-
-        .nav.hide {
-            transform: translateY(-100%);
+            transition: all 0.3s ease;
         }
 
         .nav-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-light);
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--text-dark);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9rem;
             position: relative;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
         }
 
         .nav-links a:hover {
-            color: var(--text-primary);
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
             background: var(--gradient-1);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 2rem;
         }
 
         /* Hero Section */
@@ -182,27 +223,29 @@
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 900px;
             z-index: 2;
         }
 
         .hero-badge {
             display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            padding: 0.75rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: 50px;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             font-weight: 500;
             margin-bottom: 2rem;
-            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-light);
             animation: fadeInUp 0.8s ease 0.2s both;
+            color: var(--primary);
         }
 
         .hero-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 700;
             line-height: 1.1;
             margin-bottom: 1.5rem;
             animation: fadeInUp 0.8s ease 0.4s both;
@@ -217,9 +260,13 @@
 
         .hero-subtitle {
             font-size: 1.25rem;
-            color: var(--text-secondary);
+            color: var(--text-medium);
             margin-bottom: 3rem;
             animation: fadeInUp 0.8s ease 0.6s both;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
         }
 
         .hero-cta {
@@ -231,7 +278,7 @@
         }
 
         .btn {
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border: none;
             border-radius: 50px;
             font-weight: 600;
@@ -243,6 +290,8 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-light);
         }
 
         .btn-primary {
@@ -251,19 +300,34 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
         }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--border);
+        .btn-glass {
+            background: var(--glass-bg);
+            color: var(--text-dark);
+            border: 1px solid var(--glass-border);
         }
 
-        .btn-outline:hover {
-            background: var(--bg-card);
-            border-color: var(--primary);
+        .btn-glass:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
         }
 
         /* Sections */
@@ -274,11 +338,25 @@
         }
 
         .section-title {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Playfair Display', serif;
             font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
+            font-weight: 600;
             text-align: center;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-medium);
+            font-size: 1.1rem;
             margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* About Section */
@@ -292,11 +370,34 @@
         .about-text {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-secondary);
+            color: var(--text-medium);
         }
 
         .about-text p {
             margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-card {
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .profile-placeholder {
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: var(--shadow-light);
         }
 
         .about-stats {
@@ -309,56 +410,61 @@
         .stat-card {
             text-align: center;
             padding: 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
         }
 
         .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
             font-weight: 700;
-            background: var(--gradient-1);
+            background: var(--gradient-2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: block;
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: var(--text-secondary);
+            color: var(--text-medium);
             font-weight: 500;
         }
 
         /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
         .skill-category {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
-            transition: transform 0.3s ease;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .skill-category:hover {
-            transform: translateY(-10px);
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-3);
+        }
+
+        .skill-category:nth-child(2)::before {
+            background: var(--gradient-4);
+        }
+
+        .skill-category:nth-child(3)::before {
+            background: var(--gradient-5);
         }
 
         .skill-category h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
             margin-bottom: 1.5rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-dark);
         }
 
         .skill-list {
@@ -368,36 +474,32 @@
         }
 
         .skill-tag {
-            padding: 0.5rem 1rem;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.75rem 1.5rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
             border-radius: 50px;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
         }
 
         /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             gap: 3rem;
         }
 
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
+            padding: 3rem;
             position: relative;
             overflow: hidden;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .project-card::before {
@@ -406,51 +508,90 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 6px;
             background: var(--gradient-1);
         }
 
-        .project-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
+        .project-card:nth-child(2)::before {
+            background: var(--gradient-2);
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 1rem;
         }
 
+        .status-completed {
+            background: rgba(0, 184, 148, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+
+        .status-progress {
+            background: rgba(245, 158, 11, 0.1);
+            color: #e17055;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
         .project-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+            color: var(--text-medium);
+            line-height: 1.7;
+            margin-bottom: 2rem;
         }
 
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
         }
 
         .project-tag {
-            padding: 0.25rem 0.75rem;
-            background: rgba(6, 182, 212, 0.1);
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 0.5rem 1rem;
+            background: rgba(116, 75, 162, 0.1);
+            border: 1px solid rgba(116, 75, 162, 0.2);
             border-radius: 20px;
-            font-size: 0.75rem;
-            color: var(--accent);
-        }
-
-        .project-status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--secondary);
             font-weight: 500;
         }
 
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
         /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
+            border-radius: 40px;
+            padding: 6rem 4rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -458,38 +599,64 @@
             align-items: start;
         }
 
-        .contact-info {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 3rem;
-            backdrop-filter: blur(20px);
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
         }
 
         .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-1);
-            border-radius: 12px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-3);
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .contact-item:nth-child(2) .contact-icon {
+            background: var(--gradient-4);
+        }
+
+        .contact-item:nth-child(3) .contact-icon {
+            background: var(--gradient-5);
+        }
+
+        .contact-item:nth-child(4) .contact-icon {
+            background: var(--gradient-2);
         }
 
         .contact-form {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
             padding: 3rem;
-            backdrop-filter: blur(20px);
+        }
+
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
         }
 
         .form-group {
@@ -498,30 +665,34 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-primary);
+            padding: 1.25rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            color: var(--text-dark);
             font-family: inherit;
-            transition: border-color 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .form-group textarea {
-            min-height: 120px;
+            min-height: 140px;
             resize: vertical;
         }
 
@@ -529,42 +700,58 @@
         footer {
             text-align: center;
             padding: 4rem 2rem;
-            border-top: 1px solid var(--border);
-            background: var(--bg-secondary);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            margin-top: 4rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .social-link {
-            width: 50px;
-            height: 50px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            width: 60px;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
+            color: var(--text-dark);
             text-decoration: none;
+            font-size: 1.25rem;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
         }
 
         .social-link:hover {
             background: var(--primary);
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-5px);
+        }
+
+        .social-link:nth-child(2):hover {
+            background: var(--gradient-4);
+        }
+
+        .social-link:nth-child(3):hover {
+            background: var(--gradient-5);
+        }
+
+        .social-link:nth-child(4):hover {
+            background: var(--gradient-2);
         }
 
         /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -574,13 +761,13 @@
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+            50% { opacity: 0.8; }
         }
 
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .animate-on-scroll.visible {
@@ -590,8 +777,29 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .nav {
+                top: 1rem;
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+            }
+
+            .nav-content {
+                padding: 1rem;
+                border-radius: 20px;
+            }
+
             .nav-links {
-                display: none;
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 100%;
+                text-align: center;
             }
 
             .about-grid,
@@ -604,51 +812,29 @@
                 grid-template-columns: 1fr;
             }
 
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
             .hero-cta {
                 flex-direction: column;
                 align-items: center;
             }
 
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
             section {
                 padding: 4rem 1rem;
             }
-        }
 
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 100px;
-                left: 0;
-                right: 0;
-                background: var(--bg-primary);
-                border: 1px solid var(--border);
+            .contact-section {
+                padding: 3rem 2rem;
+                margin: 2rem 1rem;
                 border-radius: 20px;
-                margin: 0 1rem;
-                padding: 2rem;
-                flex-direction: column;
-                gap: 1rem;
-                opacity: 0;
-                pointer-events: none;
-                transition: all 0.3s ease;
-            }
-
-            .nav-links.active {
-                opacity: 1;
-                pointer-events: all;
             }
         }
 
@@ -659,7 +845,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.3);
             z-index: 9999;
         }
 
@@ -676,19 +862,22 @@
     <div class="loader" id="loader">
         <div class="loader-content">
             <div class="loader-text">Rose Mary</div>
-            <div class="loader-bar">
-                <div class="loader-progress" id="loaderProgress"></div>
-            </div>
+            <div class="loader-spinner"></div>
         </div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
     </div>
 
     <!-- Scroll Indicator -->
     <div class="scroll-indicator">
         <div class="scroll-progress" id="scrollProgress"></div>
     </div>
-
-    <!-- Three.js Background -->
-    <canvas id="threejs-bg"></canvas>
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
@@ -701,7 +890,6 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
         </div>
     </nav>
 
@@ -710,16 +898,17 @@
         <div class="hero-content">
             <div class="hero-badge">✨ Available for new opportunities</div>
             <h1 class="hero-title">
-                Hi, I'm <span class="hero-gradient-text">Rose Mary</span><br>
+                Hello, I'm <span class="hero-gradient-text">Rose Mary</span><br>
                 UI/UX Designer
             </h1>
             <p class="hero-subtitle">
                 Crafting meaningful user experiences that combine creativity with usability. 
-                Passionate about creating visually appealing and functional digital solutions.
+                Passionate about creating visually appealing and functional digital solutions 
+                that make a difference.
             </p>
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-outline">Let's Connect</a>
+                <a href="#contact" class="btn btn-glass">Get In Touch</a>
             </div>
         </div>
     </section>
@@ -727,52 +916,65 @@
     <!-- About Section -->
     <section id="about">
         <h2 class="section-title animate-on-scroll">About Me</h2>
+        <p class="section-subtitle animate-on-scroll">
+            Passionate designer with a fresh perspective and hunger to learn
+        </p>
         <div class="about-grid">
             <div class="animate-on-scroll">
                 <div class="about-text">
                     <p>
-                        I'm an entry-level UI/UX Designer with hands-on project and internship experience 
-                        in creating user-centered, visually appealing, and functional digital solutions. 
-                        Currently pursuing BCA at St. Joseph's College, Devagiri.
+                        I’m a passionate UI/UX designer and creative thinker with a background in Computer Applications.
+                        My work blends design, technology, and storytelling to create intuitive digital experiences that make a real impact.
+                        With skills in Figma, Adobe Creative Suite, and UX strategy, I enjoy crafting user-friendly solutions — from mental health support platforms to innovative mobile apps. 
+                        Beyond design, I love exploring ideas through painting, reading, and badminton, which inspire creativity in my projects.
                     </p>
                     <p>
-                        My journey in design is driven by a passion for understanding user needs and 
-                        translating them into intuitive, beautiful interfaces. I believe great design 
-                        happens at the intersection of user psychology, visual aesthetics, and technical feasibility.
+                        My journey in design is driven by curiosity and a genuine desire to solve problems 
+                        through thoughtful design. I believe great design happens when we truly understand 
+                        user needs and translate them into intuitive, beautiful interfaces that make 
+                        people's lives easier and more enjoyable.
                     </p>
                     <p>
                         When I'm not designing, you'll find me exploring the latest design trends, 
-                        learning new tools, or working on personal projects that push my creative boundaries.
+                        experimenting with new tools, or working on personal projects that challenge 
+                        my creativity and push my boundaries as a designer.
                     </p>
                 </div>
             </div>
-            <div class="about-stats animate-on-scroll">
-                <div class="stat-card">
-                    <span class="stat-number">5+</span>
-                    <span class="stat-label">Certifications</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">2+</span>
-                    <span class="stat-label">Projects</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">1</span>
-                    <span class="stat-label">Internship</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Languages</span>
-                </div>
+            <div class="glass-card about-card animate-on-scroll">
+                <div class="profile-placeholder">👩‍💻</div>
+                <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Rose Mary</h3>
+                <p style="color: var(--text-medium); margin-bottom: 2rem;">
+                    UI/UX Designer 
+                </p>
             </div>
+        </div>
+        <div class="about-stats">
+            <div class="glass-card stat-card animate-on-scroll">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">Certifications</span>
+            </div>
+            <div class="glass-card stat-card animate-on-scroll">
+                <span class="stat-number">2</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="glass-card stat-card animate-on-scroll">
+                <span class="stat-number">1</span>
+                <span class="stat-label">Internship</span>
+            </div>
+ 
         </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills">
         <h2 class="section-title animate-on-scroll">Skills & Expertise</h2>
+        <p class="section-subtitle animate-on-scroll">
+            Tools and technologies I use to bring ideas to life
+        </p>
         <div class="skills-grid">
-            <div class="skill-category animate-on-scroll">
-                <h3>Design Tools</h3>
+            <div class="glass-card skill-category animate-on-scroll">
+                <h3>🎨 Design Tools</h3>
                 <div class="skill-list">
                     <span class="skill-tag">Figma</span>
                     <span class="skill-tag">Adobe Photoshop</span>
@@ -783,18 +985,18 @@
                     <span class="skill-tag">Framer</span>
                 </div>
             </div>
-            <div class="skill-category animate-on-scroll">
-                <h3>Development</h3>
+            <div class="glass-card skill-category animate-on-scroll">
+                <h3>💻 Development</h3>
                 <div class="skill-list">
                     <span class="skill-tag">HTML</span>
                     <span class="skill-tag">CSS</span>
                     <span class="skill-tag">Flutter</span>
                     <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Django</span>
+                  
                 </div>
             </div>
-            <div class="skill-category animate-on-scroll">
-                <h3>Core Skills</h3>
+            <div class="glass-card skill-category animate-on-scroll">
+                <h3>🚀 Core Skills</h3>
                 <div class="skill-list">
                     <span class="skill-tag">Wireframing</span>
                     <span class="skill-tag">Prototyping</span>
@@ -809,98 +1011,167 @@
     <!-- Projects Section -->
     <section id="projects">
         <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+        <p class="section-subtitle animate-on-scroll">
+            Some of my recent work and ongoing projects
+        </p>
         <div class="projects-grid">
-            <div class="project-card animate-on-scroll">
+            <div class="glass-card project-card animate-on-scroll">
+                <div class="project-status status-completed">✅ Completed</div>
                 <h3 class="project-title">SOLVA - Mental Health & Wellness App</h3>
                 <p class="project-description">
-                    Designed a mobile app that connects users with verified therapists and provides tools 
-                    for wellness tracking. Created user flows, wireframes, and high-fidelity prototypes 
-                    focusing on accessibility and ease of use.
+                    Designed a comprehensive mobile app that connects users with verified therapists 
+                    and provides essential tools for wellness tracking. The project focused on creating 
+                    user flows, wireframes, and high-fidelity prototypes with accessibility and ease 
+                    of use at the forefront. Ensured consistent brand identity with calming visuals 
+                    and intuitive navigation throughout the user journey.
                 </p>
                 <div class="project-tags">
                     <span class="project-tag">Mobile App</span>
                     <span class="project-tag">Health & Wellness</span>
                     <span class="project-tag">User Research</span>
                     <span class="project-tag">Prototyping</span>
+                    <span class="project-tag">Accessibility</span>
                 </div>
-                <div class="project-status">✅ Completed</div>
+                <a href="#" class="project-link">
+                    View Case Study →
+                </a>
             </div>
-            <div class="project-card animate-on-scroll">
+            <div class="glass-card project-card animate-on-scroll">
+                <div class="project-status status-progress">🔄 In Progress</div>
                 <h3 class="project-title">Emergency Fuel Delivery App</h3>
                 <p class="project-description">
-                    Designing an app that connects users with nearby verified service providers for 
-                    on-demand fuel delivery. Emphasizing safety, reliability, and convenience with 
-                    real-time tracking, quick booking, and secure payments.
+                    Currently designing an innovative app that connects users with nearby verified 
+                    service providers for on-demand fuel delivery. The design emphasizes safety, 
+                    reliability, and convenience with features like real-time tracking, quick booking 
+                    system, and secure payment integration. Working extensively on user interface 
+                    and experience design to ensure smooth end-to-end service flow.
                 </p>
                 <div class="project-tags">
                     <span class="project-tag">Mobile App</span>
                     <span class="project-tag">On-Demand Service</span>
                     <span class="project-tag">Real-time Tracking</span>
                     <span class="project-tag">Payment Integration</span>
+                    <span class="project-tag">Service Design</span>
                 </div>
-                <div class="project-status">🔄 In Progress</div>
+                <a href="#" class="project-link">
+                    View Progress →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title animate-on-scroll">Experience & Education</h2>
+        <p class="section-subtitle animate-on-scroll">
+            My journey in design and development
+        </p>
+        <div class="about-grid">
+            <div class="glass-card animate-on-scroll" style="padding: 3rem;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-dark);">
+                    💼 Experience
+                </h3>
+                <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(102, 126, 234, 0.05); border-radius: 15px; border-left: 4px solid var(--primary);">
+                    <h4 style="color: var(--text-dark); margin-bottom: 0.5rem;">UI/UX Design Intern</h4>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Sesame Technologies Pvt. Ltd.</p>
+                    <p style="color: var(--text-medium); font-size: 0.9rem; margin-bottom: 1rem;">July 2025 • Calicut, Kerala</p>
+                    <ul style="color: var(--text-medium); padding-left: 1rem;">
+                        <li>Assisted in designing user-friendly interfaces for web applications</li>
+                        <li>Contributed to creating wireframes, prototypes, and design assets</li>
+                        <li>Gained exposure to real-world design processes and client requirements</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="glass-card animate-on-scroll" style="padding: 3rem;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-dark);">
+                    🎓 Education & Certifications
+                </h3>
+                <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(240, 147, 251, 0.05); border-radius: 15px; border-left: 4px solid var(--accent);">
+                    <h4 style="color: var(--text-dark); margin-bottom: 0.5rem;">Bachelor of Computer Applications</h4>
+                    <p style="color: var(--secondary); font-weight: 600; margin-bottom: 0.5rem;">St. Joseph's College, Devagiri</p>
+                    <p style="color: var(--text-medium); font-size: 0.9rem;">2022 - 2025</p>
+                </div>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="padding: 1rem; background: rgba(116, 75, 162, 0.05); border-radius: 10px;">
+                        <p style="font-weight: 600; color: var(--text-dark);">Foundation of User Experience (UX)</p>
+                        <p style="color: var(--text-medium); font-size: 0.9rem;">Google • 2024</p>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(116, 75, 162, 0.05); border-radius: 10px;">
+                        <p style="font-weight: 600; color: var(--text-dark);">Python Programming with Django</p>
+                        <p style="color: var(--text-medium); font-size: 0.9rem;">Riss Technologies • 2023</p>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(116, 75, 162, 0.05); border-radius: 10px;">
+                        <p style="font-weight: 600; color: var(--text-dark);">UI UX Design Pro</p>
+                        <p style="color: var(--text-medium); font-size: 0.9rem;">Aspira (Bangalore) • 2025</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
-        <h2 class="section-title animate-on-scroll">Let's Connect</h2>
-        <div class="contact-grid">
-            <div class="contact-info animate-on-scroll">
-                <h3 style="margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif;">Get in touch</h3>
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div>
-                        <strong>Email</strong><br>
-                        <a href="mailto:rosemarymathew497@gmail.com" style="color: var(--text-secondary);">
-                            rosemarymathew497@gmail.com
-                        </a>
+        <div class="contact-section glass-card">
+            <h2 class="section-title animate-on-scroll">Let's Create Something Amazing</h2>
+            <p class="section-subtitle animate-on-scroll">
+                Ready to collaborate? I'd love to hear about your next project
+            </p>
+            <div class="contact-grid">
+                <div class="contact-info animate-on-scroll">
+                    <h3>Get in touch</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong style="color: var(--text-dark);">Email</strong><br>
+                            <a href="mailto:rosemarymathew497@gmail.com" style="color: var(--text-medium); text-decoration: none;">
+                                rosemarymathew497@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong style="color: var(--text-dark);">Phone</strong><br>
+                            <a href="tel:9526220906" style="color: var(--text-medium); text-decoration: none;">
+                                +91 95262 20906
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <strong style="color: var(--text-dark);">LinkedIn</strong><br>
+                            <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" style="color: var(--text-medium); text-decoration: none;">
+                                rose-mary-16729431b
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌍</div>
+                        <div>
+                            <strong style="color: var(--text-dark);">Location</strong><br>
+                            <span style="color: var(--text-medium);">Calicut, Kerala, India</span>
+                        </div>
                     </div>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📱</div>
-                    <div>
-                        <strong>Phone</strong><br>
-                        <a href="tel:9526220906" style="color: var(--text-secondary);">
-                            +91 95262 20906
-                        </a>
-                    </div>
+                <div class="glass-card contact-form animate-on-scroll">
+                    <h3>Send a message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message ✨</button>
+                    </form>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💼</div>
-                    <div>
-                        <strong>LinkedIn</strong><br>
-                        <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" style="color: var(--text-secondary);">
-                            rose-mary-16729431b
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">🌍</div>
-                    <div>
-                        <strong>Location</strong><br>
-                        <span style="color: var(--text-secondary);">Calicut, Kerala</span>
-                    </div>
-                </div>
-            </div>
-            <div class="contact-form animate-on-scroll">
-                <h3 style="margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif;">Send a message</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-                </form>
             </div>
         </div>
     </section>
@@ -908,117 +1179,25 @@
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" class="social-link">💼</a>
-            <a href="mailto:rosemarymathew497@gmail.com" class="social-link">📧</a>
-            <a href="tel:9526220906" class="social-link">📱</a>
-            <a href="#" class="social-link" onclick="downloadResume()">📄</a>
+            <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" class="social-link" title="LinkedIn">💼</a>
+            <a href="mailto:rosemarymathew497@gmail.com" class="social-link" title="Email">📧</a>
+            <a href="tel:9526220906" class="social-link" title="Phone">📱</a>
+            <a href="#" class="social-link" onclick="downloadResume()" title="Download Resume">📄</a>
         </div>
-        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+        <p style="color: var(--text-medium); margin-bottom: 1rem; font-size: 1.1rem;">
             © 2025 Rose Mary. All rights reserved.
         </p>
-        <p style="color: var(--text-secondary); font-size: 0.875rem;">
-            Crafted with ❤️ and lots of coffee
+        <p style="color: var(--text-light); font-size: 0.9rem;">
+            Crafted with ❤️ and endless cups of coffee
         </p>
     </footer>
 
     <script>
         // Loading Screen
-        let progress = 0;
-        const loadingInterval = setInterval(() => {
-            progress += Math.random() * 15;
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(loadingInterval);
-                setTimeout(() => {
-                    document.getElementById('loader').classList.add('hide');
-                    initThreeJS();
-                    initScrollAnimations();
-                }, 500);
-            }
-            document.getElementById('loaderProgress').style.width = progress + '%';
-        }, 100);
-
-        // Three.js Background
-        let scene, camera, renderer, particles;
-
-        function initThreeJS() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({canvas: document.getElementById('threejs-bg'), alpha: true});
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-            // Create particles
-            const particleCount = 2000;
-            const particleGeometry = new THREE.BufferGeometry();
-            const particlePositions = new Float32Array(particleCount * 3);
-            const particleVelocities = new Float32Array(particleCount * 3);
-
-            for (let i = 0; i < particleCount * 3; i += 3) {
-                particlePositions[i] = (Math.random() - 0.5) * 2000;
-                particlePositions[i + 1] = (Math.random() - 0.5) * 2000;
-                particlePositions[i + 2] = (Math.random() - 0.5) * 2000;
-                
-                particleVelocities[i] = (Math.random() - 0.5) * 0.2;
-                particleVelocities[i + 1] = (Math.random() - 0.5) * 0.2;
-                particleVelocities[i + 2] = (Math.random() - 0.5) * 0.2;
-            }
-
-            particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-            particleGeometry.setAttribute('velocity', new THREE.BufferAttribute(particleVelocities, 3));
-
-            const particleMaterial = new THREE.PointsMaterial({
-                color: 0x6366f1,
-                size: 2,
-                transparent: true,
-                opacity: 0.6
-            });
-
-            particles = new THREE.Points(particleGeometry, particleMaterial);
-            scene.add(particles);
-
-            camera.position.z = 500;
-
-            animate();
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            if (particles) {
-                particles.rotation.x += 0.0005;
-                particles.rotation.y += 0.0005;
-
-                const positions = particles.geometry.attributes.position.array;
-                const velocities = particles.geometry.attributes.velocity.array;
-
-                for (let i = 0; i < positions.length; i += 3) {
-                    positions[i] += velocities[i];
-                    positions[i + 1] += velocities[i + 1];
-                    positions[i + 2] += velocities[i + 2];
-
-                    // Wrap around edges
-                    if (positions[i] > 1000) positions[i] = -1000;
-                    if (positions[i] < -1000) positions[i] = 1000;
-                    if (positions[i + 1] > 1000) positions[i + 1] = -1000;
-                    if (positions[i + 1] < -1000) positions[i + 1] = 1000;
-                    if (positions[i + 2] > 1000) positions[i + 2] = -1000;
-                    if (positions[i + 2] < -1000) positions[i + 2] = 1000;
-                }
-
-                particles.geometry.attributes.position.needsUpdate = true;
-            }
-
-            renderer.render(scene, camera);
-        }
-
-        // Resize handler
-        window.addEventListener('resize', () => {
-            if (camera && renderer) {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            }
-        });
+        setTimeout(() => {
+            document.getElementById('loader').classList.add('hide');
+            initScrollAnimations();
+        }, 2000);
 
         // Scroll Animations
         function initScrollAnimations() {
@@ -1044,14 +1223,6 @@
         window.addEventListener('scroll', () => {
             const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             document.getElementById('scrollProgress').style.width = scrolled + '%';
-
-            // Hide/show navigation
-            const nav = document.getElementById('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(15, 15, 35, 0.95)';
-            } else {
-                nav.style.background = 'transparent';
-            }
         });
 
         // Smooth Scrolling
@@ -1068,26 +1239,10 @@
             });
         });
 
-        // Mobile Menu
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navLinks = document.getElementById('navLinks');
-
-        mobileMenuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        navLinks.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                navLinks.classList.remove('active');
-            }
-        });
-
         // Form Submission
-        document.querySelector('form').addEventListener('submit', (e) => {
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Get form data
             const formData = new FormData(e.target);
             const name = formData.get('name');
             const email = formData.get('email');
@@ -1102,7 +1257,7 @@
             window.location.href = mailtoLink;
             
             // Show success message
-            alert('Thank you for your message! Your email client should now open with a pre-filled message.');
+            alert('Thank you for your message! 🎉 Your email client should now open with a pre-filled message.');
             
             // Reset form
             e.target.reset();
@@ -1110,57 +1265,65 @@
 
         // Download Resume Function
         function downloadResume() {
-            // Create a simple resume content as text file
             const resumeContent = `
 ROSE MARY
 UI/UX Designer
 
 CONTACT INFORMATION
-Email: rosemarymathew497@gmail.com
-Phone: +91 95262 20906
-LinkedIn: www.linkedin.com/in/rose-mary-16729431b
+📧 Email: rosemarymathew497@gmail.com
+📱 Phone: +91 95262 20906
+💼 LinkedIn: www.linkedin.com/in/rose-mary-16729431b
+🌍 Location: Calicut, Kerala, India
 
 PROFESSIONAL SUMMARY
 Entry-level UI/UX Designer with hands-on project and internship experience in creating user-centered, visually appealing, and functional digital solutions. Skilled in Figma, Adobe Creative Suite, and front-end technologies, with certifications from Google and advanced design training. Passionate about crafting meaningful user experiences that combine creativity with usability.
 
 EDUCATION
-BCA St. Joseph's College, Devagiri (2022-2025)
+🎓 BCA (Bachelor of Computer Applications)
+   St. Joseph's College, Devagiri
+   2022 - 2025
 
 CERTIFICATIONS
-- Foundation of User Experience (UX), Google (2024)
-- Python Programming with Django, Riss Technologies (2023)
-- Flutter, Maitexa (2023)
-- Figma UI UX Design Advanced, Udemy (2025)
-- Figma UI/UX Mastery, TBH (2025)
-- UI UX Design Pro, Aspira (Bangalore) (2025)
+✅ Foundation of User Experience (UX) - Google (2024)
+✅ Python Programming with Django - Riss Technologies (2023)
+✅ Flutter - Maitexa (2023)
+✅ Figma UI UX Design Advanced - Udemy (2025)
+✅ Figma UI/UX Mastery - TBH (2025)
+✅ UI UX Design Pro - Aspira (Bangalore) (2025)
 
 SKILLS
-Design Tools: Figma, Adobe Photoshop, Sketch, InDesign, XD, Premiere Pro, Framer
-Development: HTML, CSS, Flutter
-Core Skills: Wireframing, Prototyping, User Research, Visual Design, Usability Testing
+🎨 Design Tools: Figma, Adobe Photoshop, Sketch, InDesign, XD, Premiere Pro, Framer
+💻 Development: HTML, CSS, Flutter, Python, Django
+🚀 Core Skills: Wireframing, Prototyping, User Research, Visual Design, Usability Testing
 
 EXPERIENCE
-UI/UX Design Intern – Sesame Technologies Pvt. Ltd., Calicut, Kerala (July 2025)
-- Assisted in designing user-friendly interfaces for web applications
-- Contributed to creating wireframes, prototypes, and design assets under the guidance of the design team
-- Gained exposure to real-world design processes and client requirements
+💼 UI/UX Design Intern
+   Sesame Technologies Pvt. Ltd., Calicut, Kerala (July 2025)
+   • Assisted in designing user-friendly interfaces for web applications
+   • Contributed to creating wireframes, prototypes, and design assets
+   • Gained exposure to real-world design processes and client requirements
 
 PROJECTS
-SOLVA – Mental Health & Wellness App
-- Designed a mobile app that connects users with verified therapists and provides tools for wellness tracking
-- Created user flows, wireframes, and high-fidelity prototypes focusing on accessibility and ease of use
-- Ensured a consistent brand identity with calming visuals and intuitive navigation
+🎯 SOLVA – Mental Health & Wellness App (Completed)
+   • Designed a mobile app connecting users with verified therapists
+   • Created user flows, wireframes, and high-fidelity prototypes
+   • Focused on accessibility and ease of use
+   • Ensured consistent brand identity with calming visuals
 
-Emergency Fuel Delivery App (In Progress)
-- Designing an app that connects users with nearby verified service providers for on-demand fuel delivery
-- Emphasizing safety, reliability, and convenience with real-time tracking, quick booking, and secure payments
-- Working on user interface and experience design to ensure smooth end-to-end service flow
+🚀 Emergency Fuel Delivery App (In Progress)
+   • Designing app for on-demand fuel delivery service
+   • Emphasizing safety, reliability, and convenience
+   • Features: real-time tracking, quick booking, secure payments
+   • Working on end-to-end user experience design
 
 LANGUAGES
-English | Malayalam | Tamil
+🗣️ English | Malayalam | Tamil
+
+---
+Portfolio: [Your Portfolio URL]
+Generated: ${new Date().toLocaleDateString()}
             `;
 
-            // Create and download file
             const blob = new Blob([resumeContent], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1173,7 +1336,31 @@ English | Malayalam | Tamil
             document.body.removeChild(a);
         }
 
-        // Cursor Trail Effect (optional enhancement)
+        // Add parallax effect to floating shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.floating-shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.1;
+                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Add interactive hover effects to glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 25px 50px 0 rgba(31, 38, 135, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.37)';
+            });
+        });
+
+        // Add cursor trail effect
         let mouseX = 0, mouseY = 0;
         let trail = [];
 
@@ -1181,61 +1368,92 @@ English | Malayalam | Tamil
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            trail.unshift({x: mouseX, y: mouseY});
-            if (trail.length > 20) trail.pop();
-        });
-
-        // Parallax Effect for Hero Section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero');
-            if (parallax) {
-                const speed = scrolled * 0.5;
-                parallax.style.transform = `translateY(${speed}px)`;
-            }
-        });
-
-        // Add interactive hover effects
-        document.querySelectorAll('.project-card, .skill-category, .stat-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
+            // Create subtle cursor trail
+            const dot = document.createElement('div');
+            dot.style.cssText = `
+                position: fixed;
+                top: ${mouseY}px;
+                left: ${mouseX}px;
+                width: 4px;
+                height: 4px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                opacity: 0.6;
+                animation: fadeOut 1s ease-out forwards;
+            `;
+            document.body.appendChild(dot);
             
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
+            setTimeout(() => {
+                if (dot.parentNode) {
+                    dot.parentNode.removeChild(dot);
+                }
+            }, 1000);
         });
 
-        // Typing effect for hero title (optional)
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
+        // Add fadeOut animation for cursor trail
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% {
+                    opacity: 0.6;
+                    transform: scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0);
                 }
             }
-            type();
-        }
-
-        // Initialize typing effect after loading
-        setTimeout(() => {
-            const heroTitle = document.querySelector('.hero-title');
-            if (heroTitle) {
-                const originalText = heroTitle.innerHTML;
-                typeWriter(heroTitle, 'Hi, I\'m Rose Mary\nUI/UX Designer', 100);
-            }
-        }, 2000);
+        `;
+        document.head.appendChild(style);
 
         // Add floating animation to hero badge
         const heroBadge = document.querySelector('.hero-badge');
         if (heroBadge) {
             setInterval(() => {
-                heroBadge.style.transform = 'translateY(' + Math.sin(Date.now() / 1000) * 5 + 'px)';
+                heroBadge.style.transform = 'translateY(' + Math.sin(Date.now() / 2000) * 3 + 'px)';
             }, 16);
+        }
+
+        // Add typing effect to stats
+        function animateNumbers() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach((stat, index) => {
+                const finalValue = stat.textContent;
+                const isNumber = !isNaN(finalValue.replace('+', ''));
+                
+                if (isNumber) {
+                    const targetNumber = parseInt(finalValue.replace('+', ''));
+                    let currentNumber = 0;
+                    
+                    const increment = targetNumber / 50;
+                    const timer = setInterval(() => {
+                        currentNumber += increment;
+                        if (currentNumber >= targetNumber) {
+                            currentNumber = targetNumber;
+                            clearInterval(timer);
+                        }
+                        stat.textContent = Math.floor(currentNumber) + (finalValue.includes('+') ? '+' : '');
+                    }, 30);
+                }
+            });
+        }
+
+        // Trigger number animation when stats section comes into view
+        const statsSection = document.querySelector('.about-stats');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(animateNumbers, 500);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (statsSection) {
+            statsObserver.observe(statsSection);
         }
     </script>
 </body>
