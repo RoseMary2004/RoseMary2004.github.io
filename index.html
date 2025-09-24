@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #0021b4;
@@ -175,6 +176,8 @@
             border-radius: 50px;
             padding: 1rem 2rem;
             box-shadow: var(--shadow-light);
+            display: flex;
+            align-items: center;
         }
 
         .nav-links {
@@ -209,6 +212,22 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
         }
 
         /* Hero Section */
@@ -225,6 +244,15 @@
         .hero-content {
             max-width: 900px;
             z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left;
         }
 
         .hero-badge {
@@ -244,7 +272,7 @@
 
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 7rem);
+            font-size: clamp(3rem, 8vw, 5rem);
             font-weight: 700;
             line-height: 1.1;
             margin-bottom: 1.5rem;
@@ -264,17 +292,45 @@
             margin-bottom: 3rem;
             animation: fadeInUp 0.8s ease 0.6s both;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
             margin-bottom: 3rem;
         }
 
         .hero-cta {
             display: flex;
             gap: 1.5rem;
-            justify-content: center;
+            justify-content: flex-start;
             flex-wrap: wrap;
             animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .hero-illustration {
+            flex: 0 0 400px;
+            animation: bounceIn 1s ease 0.5s both;
+            position: relative;
+        }
+
+        .sticker {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateX(100px);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05) translateX(0);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateX(0);
+            }
         }
 
         .btn {
@@ -398,6 +454,13 @@
             font-size: 4rem;
             color: white;
             box-shadow: var(--shadow-light);
+            overflow: hidden;
+        }
+
+        .profile-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .about-stats {
@@ -427,6 +490,45 @@
         .stat-label {
             color: var(--text-medium);
             font-weight: 500;
+        }
+
+        /* About Gallery */
+        .about-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 150px;
+            position: relative;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.8rem;
         }
 
         /* Skills Section */
@@ -580,6 +682,26 @@
 
         .project-link:hover {
             gap: 1rem;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
         }
 
         /* Contact Section */
@@ -776,6 +898,22 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-cta {
+                justify-content: center;
+            }
+            
+            .hero-illustration {
+                flex: 0 0 300px;
+                margin-top: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav {
                 top: 1rem;
@@ -787,19 +925,45 @@
             .nav-content {
                 padding: 1rem;
                 border-radius: 20px;
+                justify-content: space-between;
             }
 
             .nav-links {
-                gap: 1rem;
-                flex-wrap: wrap;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
                 justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                background: rgba(102, 126, 234, 0.1);
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+                width: 80%;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
             }
 
             .logo {
                 margin-right: 0;
-                margin-bottom: 1rem;
-                width: 100%;
-                text-align: center;
             }
 
             .about-grid,
@@ -836,6 +1000,10 @@
                 margin: 2rem 1rem;
                 border-radius: 20px;
             }
+            
+            .hero-illustration {
+                flex: 0 0 250px;
+            }
         }
 
         /* Scroll indicator */
@@ -854,6 +1022,32 @@
             background: var(--gradient-1);
             width: 0;
             transition: width 0.1s ease;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success);
         }
     </style>
 </head>
@@ -882,33 +1076,81 @@
     <!-- Navigation -->
     <nav class="nav" id="nav">
         <div class="nav-content">
-        
+            <div class="logo">
+                <span class="logo-icon">🌹</span>
+                <span>Rose Mary</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <div class="hero-badge">✨ Available for new opportunities</div>
-            <h1 class="hero-title">
-                Hello, I'm <br> <span class="hero-gradient-text">Rose Mary</span><br>
-                UI/UX Designer
-            </h1>
-            <p class="hero-subtitle">
-                Crafting meaningful user experiences that combine creativity with usability. 
-                Passionate about creating visually appealing and functional digital solutions 
-                that make a difference.
-            </p>
-            <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-glass">Get In Touch</a>
+            <div class="hero-text">
+                <div class="hero-badge">✨ Available for new opportunities</div>
+                <h1 class="hero-title">
+                    Hello, I'm <span class="hero-gradient-text">Rose Mary</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Crafting meaningful user experiences that combine creativity with usability. 
+                    Passionate about creating visually appealing and functional digital solutions 
+                    that make a difference.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-glass">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <svg class="sticker" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background shape -->
+                    <path d="M200,50 C300,50 350,150 350,250 C350,350 300,350 200,350 C100,350 50,350 50,250 C50,150 100,50 200,50 Z" 
+                          fill="#FFD6E0"/>
+                    
+                    <!-- Designer character -->
+                    <circle cx="200" cy="180" r="60" fill="#FF9EAA"/>
+                    
+                    <!-- Eyes -->
+                    <circle cx="185" cy="170" r="8" fill="#333"/>
+                    <circle cx="215" cy="170" r="8" fill="#333"/>
+                    
+                    <!-- Smile -->
+                    <path d="M180,200 Q200,220 220,200" stroke="#333" stroke-width="4" fill="none"/>
+                    
+                    <!-- Laptop -->
+                    <rect x="150" y="230" width="100" height="60" rx="5" fill="#74B9FF"/>
+                    <rect x="155" y="235" width="90" height="40" rx="3" fill="#DFF6FF"/>
+                    
+                    <!-- Design elements -->
+                    <circle cx="120" cy="120" r="15" fill="#FFEAA7"/>
+                    <circle cx="280" cy="120" r="15" fill="#A29BFE"/>
+                    <rect x="100" cy="280" width="30" height="30" rx="5" transform="rotate(45 100 280)" fill="#55EFC4"/>
+                    
+                    <!-- Thought bubble -->
+                    <path d="M250,120 C270,100 300,110 310,130 C320,150 300,170 280,160 C260,150 250,130 250,120 Z" 
+                          fill="white"/>
+                    <circle cx="270" cy="130" r="3" fill="#333"/>
+                    <circle cx="280" cy="140" r="2" fill="#333"/>
+                    
+                    <!-- Decorative elements -->
+                    <circle cx="80" cy="80" r="10" fill="#FD79A8" opacity="0.7"/>
+                    <circle cx="320" cy="80" r="8" fill="#FDCB6E" opacity="0.7"/>
+                    <circle cx="350" cy="200" r="12" fill="#74B9FF" opacity="0.7"/>
+                </svg>
             </div>
         </div>
     </section>
@@ -923,10 +1165,9 @@
             <div class="animate-on-scroll">
                 <div class="about-text">
                     <p>
-                        I’m a passionate UI/UX designer and creative thinker with a background in Computer Applications.
+                        I'm a passionate UI/UX designer and creative thinker with a background in Computer Applications.
                         My work blends design, technology, and storytelling to create intuitive digital experiences that make a real impact.
                         With skills in Figma, Adobe Creative Suite, and UX strategy, I enjoy crafting user-friendly solutions — from mental health support platforms to innovative mobile apps. 
-                        Beyond design, I love exploring ideas through painting, reading, and badminton, which inspire creativity in my projects.
                     </p>
                     <p>
                         My journey in design is driven by curiosity and a genuine desire to solve problems 
@@ -934,23 +1175,51 @@
                         user needs and translate them into intuitive, beautiful interfaces that make 
                         people's lives easier and more enjoyable.
                     </p>
-                    <p>
-                        When I'm not designing, you'll find me exploring the latest design trends, 
-                        experimenting with new tools, or working on personal projects that challenge 
-                        my creativity and push my boundaries as a designer.
-                    </p>
+                </div>
+                
+                <!-- About Gallery -->
+                <div class="about-gallery animate-on-scroll">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Design Process">
+                        <div class="gallery-caption">Design Process</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Creative Thinking">
+                        <div class="gallery-caption">Creative Thinking</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="User Research">
+                        <div class="gallery-caption">User Research</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Problem Solving">
+                        <div class="gallery-caption">Problem Solving</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Visual Design">
+                        <div class="gallery-caption">Visual Design</div>
+                    </div>
                 </div>
             </div>
             <div class="glass-card about-card animate-on-scroll">
-             <div class="profile-placeholder">
-  <img src="images/profile.jpeg" alt="Rose Mary" style="width:200px; height:200px; border-radius:50%; object-fit:cover;">
-</div>
-
-<h3 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Rose Mary</h3>
-<p style="color: var(--text-medium); margin-bottom: 2rem;">
-  UI/UX Designer
-</p>
-
+                <div class="profile-placeholder">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Rose Mary">
+                </div>
+                <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Rose Mary</h3>
+                <p style="color: var(--text-medium); margin-bottom: 2rem;">
+                    UI/UX Designer
+                </p>
+                <div class="social-links" style="justify-content: center;">
+                    <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:rosemarymathew497@gmail.com" class="social-link" title="Email">
+                        <i class="far fa-envelope"></i>
+                    </a>
+                    <a href="tel:9526220906" class="social-link" title="Phone">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="about-stats">
@@ -966,7 +1235,10 @@
                 <span class="stat-number">1</span>
                 <span class="stat-label">Internship</span>
             </div>
- 
+            <div class="glass-card stat-card animate-on-scroll">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Passionate</span>
+            </div>
         </div>
     </section>
 
@@ -978,7 +1250,7 @@
         </p>
         <div class="skills-grid">
             <div class="glass-card skill-category animate-on-scroll">
-                <h3>🎨 Design Tools</h3>
+                <h3><i class="fas fa-palette"></i> Design Tools</h3>
                 <div class="skill-list">
                     <span class="skill-tag">Figma</span>
                     <span class="skill-tag">Adobe Photoshop</span>
@@ -990,17 +1262,16 @@
                 </div>
             </div>
             <div class="glass-card skill-category animate-on-scroll">
-                <h3>💻 Development</h3>
+                <h3><i class="fas fa-code"></i> Development</h3>
                 <div class="skill-list">
                     <span class="skill-tag">HTML</span>
                     <span class="skill-tag">CSS</span>
                     <span class="skill-tag">Flutter</span>
                     <span class="skill-tag">Python</span>
-                  
                 </div>
             </div>
             <div class="glass-card skill-category animate-on-scroll">
-                <h3>🚀 Core Skills</h3>
+                <h3><i class="fas fa-rocket"></i> Core Skills</h3>
                 <div class="skill-list">
                     <span class="skill-tag">Wireframing</span>
                     <span class="skill-tag">Prototyping</span>
@@ -1022,6 +1293,12 @@
             <div class="glass-card project-card animate-on-scroll">
                 <div class="project-status status-completed">✅ Completed</div>
                 <h3 class="project-title">SOLVA - Mental Health & Wellness App</h3>
+                
+                <!-- Project Image -->
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="SOLVA App">
+                </div>
+                
                 <p class="project-description">
                     Designed a comprehensive mobile app that connects users with verified therapists 
                     and provides essential tools for wellness tracking. The project focused on creating 
@@ -1037,12 +1314,18 @@
                     <span class="project-tag">Accessibility</span>
                 </div>
                 <a href="#" class="project-link">
-                    View Case Study →
+                    View Case Study <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
             <div class="glass-card project-card animate-on-scroll">
                 <div class="project-status status-progress">🔄 In Progress</div>
                 <h3 class="project-title">Emergency Fuel Delivery App</h3>
+                
+                <!-- Project Image -->
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Fuel Delivery App">
+                </div>
+                
                 <p class="project-description">
                     Currently designing an innovative app that connects users with nearby verified 
                     service providers for on-demand fuel delivery. The design emphasizes safety, 
@@ -1058,7 +1341,7 @@
                     <span class="project-tag">Service Design</span>
                 </div>
                 <a href="#" class="project-link">
-                    View Progress →
+                    View Progress <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
@@ -1073,7 +1356,7 @@
         <div class="about-grid">
             <div class="glass-card animate-on-scroll" style="padding: 3rem;">
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-dark);">
-                    💼 Experience
+                    <i class="fas fa-briefcase"></i> Experience
                 </h3>
                 <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(102, 126, 234, 0.05); border-radius: 15px; border-left: 4px solid var(--primary);">
                     <h4 style="color: var(--text-dark); margin-bottom: 0.5rem;">UI/UX Design Intern</h4>
@@ -1088,7 +1371,7 @@
             </div>
             <div class="glass-card animate-on-scroll" style="padding: 3rem;">
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-dark);">
-                    🎓 Education & Certifications
+                    <i class="fas fa-graduation-cap"></i> Education & Certifications
                 </h3>
                 <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(240, 147, 251, 0.05); border-radius: 15px; border-left: 4px solid var(--accent);">
                     <h4 style="color: var(--text-dark); margin-bottom: 0.5rem;">Bachelor of Computer Applications</h4>
@@ -1124,7 +1407,7 @@
                 <div class="contact-info animate-on-scroll">
                     <h3>Get in touch</h3>
                     <div class="contact-item">
-                        <div class="contact-icon">📧</div>
+                        <div class="contact-icon"><i class="far fa-envelope"></i></div>
                         <div>
                             <strong style="color: var(--text-dark);">Email</strong><br>
                             <a href="mailto:rosemarymathew497@gmail.com" style="color: var(--text-medium); text-decoration: none;">
@@ -1133,7 +1416,7 @@
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">📱</div>
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
                         <div>
                             <strong style="color: var(--text-dark);">Phone</strong><br>
                             <a href="tel:9526220906" style="color: var(--text-medium); text-decoration: none;">
@@ -1142,7 +1425,7 @@
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">💼</div>
+                        <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
                         <div>
                             <strong style="color: var(--text-dark);">LinkedIn</strong><br>
                             <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" style="color: var(--text-medium); text-decoration: none;">
@@ -1151,7 +1434,7 @@
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">🌍</div>
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
                             <strong style="color: var(--text-dark);">Location</strong><br>
                             <span style="color: var(--text-medium);">Calicut, Kerala, India</span>
@@ -1173,7 +1456,7 @@
                             <label for="message">Message</label>
                             <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message ✨</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message <i class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
@@ -1183,16 +1466,24 @@
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" class="social-link" title="LinkedIn">💼</a>
-            <a href="mailto:rosemarymathew497@gmail.com" class="social-link" title="Email">📧</a>
-            <a href="tel:9526220906" class="social-link" title="Phone">📱</a>
-            <a href="#" class="social-link" onclick="downloadResume()" title="Download Resume">📄</a>
+            <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" class="social-link" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:rosemarymathew497@gmail.com" class="social-link" title="Email">
+                <i class="far fa-envelope"></i>
+            </a>
+            <a href="tel:9526220906" class="social-link" title="Phone">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="#" class="social-link" onclick="downloadResume()" title="Download Resume">
+                <i class="fas fa-download"></i>
+            </a>
         </div>
         <p style="color: var(--text-medium); margin-bottom: 1rem; font-size: 1.1rem;">
             © 2025 Rose Mary. All rights reserved.
         </p>
         <p style="color: var(--text-light); font-size: 0.9rem;">
-            Crafted with ❤️ and endless cups of coffee
+            Crafted with <i class="fas fa-heart" style="color: #e74c3c;"></i> and endless cups of coffee
         </p>
     </footer>
 
@@ -1202,6 +1493,24 @@
             document.getElementById('loader').classList.add('hide');
             initScrollAnimations();
         }, 2000);
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
 
         // Scroll Animations
         function initScrollAnimations() {
@@ -1243,6 +1552,18 @@
             });
         });
 
+        // Toast Notification Function
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
         // Form Submission
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1257,11 +1578,13 @@
             const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
             const mailtoLink = `mailto:rosemarymathew497@gmail.com?subject=${subject}&body=${body}`;
             
-            // Open email client
-            window.location.href = mailtoLink;
-            
             // Show success message
-            alert('Thank you for your message! 🎉 Your email client should now open with a pre-filled message.');
+            showToast('Thank you for your message! Opening your email client...', 'success');
+            
+            // Open email client after a short delay
+            setTimeout(() => {
+                window.location.href = mailtoLink;
+            }, 1500);
             
             // Reset form
             e.target.reset();
@@ -1277,7 +1600,7 @@ CONTACT INFORMATION
 📧 Email: rosemarymathew497@gmail.com
 📱 Phone: +91 95262 20906
 💼 LinkedIn: www.linkedin.com/in/rose-mary-16729431b
-🌍 Location: Bangalore, Karnataka, India
+🌍 Location: Calicut, Kerala, India
 
 PROFESSIONAL SUMMARY
 Entry-level UI/UX Designer with hands-on project and internship experience in creating user-centered, visually appealing, and functional digital solutions. Skilled in Figma, Adobe Creative Suite, and front-end technologies, with certifications from Google and advanced design training. Passionate about crafting meaningful user experiences that combine creativity with usability.
@@ -1338,6 +1661,8 @@ Generated: ${new Date().toLocaleDateString()}
             a.click();
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
+            
+            showToast('Resume downloaded successfully!', 'success');
         }
 
         // Add parallax effect to floating shapes
@@ -1364,54 +1689,6 @@ Generated: ${new Date().toLocaleDateString()}
             });
         });
 
-        // Add cursor trail effect
-        let mouseX = 0, mouseY = 0;
-        let trail = [];
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // Create subtle cursor trail
-            const dot = document.createElement('div');
-            dot.style.cssText = `
-                position: fixed;
-                top: ${mouseY}px;
-                left: ${mouseX}px;
-                width: 4px;
-                height: 4px;
-                background: linear-gradient(135deg, #667eea, #764ba2);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9998;
-                opacity: 0.6;
-                animation: fadeOut 1s ease-out forwards;
-            `;
-            document.body.appendChild(dot);
-            
-            setTimeout(() => {
-                if (dot.parentNode) {
-                    dot.parentNode.removeChild(dot);
-                }
-            }, 1000);
-        });
-
-        // Add fadeOut animation for cursor trail
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                0% {
-                    opacity: 0.6;
-                    transform: scale(1);
-                }
-                100% {
-                    opacity: 0;
-                    transform: scale(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
         // Add floating animation to hero badge
         const heroBadge = document.querySelector('.hero-badge');
         if (heroBadge) {
@@ -1426,10 +1703,10 @@ Generated: ${new Date().toLocaleDateString()}
             
             statNumbers.forEach((stat, index) => {
                 const finalValue = stat.textContent;
-                const isNumber = !isNaN(finalValue.replace('+', ''));
+                const isNumber = !isNaN(finalValue.replace('+', '').replace('%', ''));
                 
                 if (isNumber) {
-                    const targetNumber = parseInt(finalValue.replace('+', ''));
+                    const targetNumber = parseInt(finalValue.replace('+', '').replace('%', ''));
                     let currentNumber = 0;
                     
                     const increment = targetNumber / 50;
@@ -1439,7 +1716,9 @@ Generated: ${new Date().toLocaleDateString()}
                             currentNumber = targetNumber;
                             clearInterval(timer);
                         }
-                        stat.textContent = Math.floor(currentNumber) + (finalValue.includes('+') ? '+' : '');
+                        stat.textContent = Math.floor(currentNumber) + 
+                            (finalValue.includes('+') ? '+' : '') + 
+                            (finalValue.includes('%') ? '%' : '');
                     }, 30);
                 }
             });
@@ -1459,6 +1738,23 @@ Generated: ${new Date().toLocaleDateString()}
         if (statsSection) {
             statsObserver.observe(statsSection);
         }
+
+        // Add navigation background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'var(--glass-bg)';
+                nav.style.backdropFilter = 'blur(20px)';
+                nav.style.border = '1px solid var(--glass-border)';
+                nav.style.borderRadius = '50px';
+                nav.style.padding = '0.5rem 1rem';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.backdropFilter = 'none';
+                nav.style.border = 'none';
+                nav.style.padding = '0';
+            }
+        });
     </script>
 </body>
 </html>
