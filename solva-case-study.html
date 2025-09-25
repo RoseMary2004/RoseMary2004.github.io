@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLVA Case Study - Rose Mary</title>
+    <meta name="description" content="SOLVA Mental Health & Wellness App - Detailed case study by Rose Mary">
+    
+    <!-- Use the same fonts and styles as your main page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Copy ALL the CSS from your main page here */
+        :root {
+            --primary: #0021b4;
+            --secondary: #0021b4;
+            --accent: #0021b4;
+            --warm: #ffeaa7;
+            --cool: #74b9ff;
+            --success: #00b894;
+            --text-dark: #000000;
+            --text-medium: #636e72;
+            --text-light: #b2bec3;
+            --bg-light: #f8f9ff;
+            --bg-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --shadow-medium: 0 15px 35px 0 rgba(31, 38, 135, 0.2);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #0021b4 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #0021b4 100%);
+            --gradient-3: linear-gradient(135deg, #667eea 0%, #0021b4 100%);
+            --gradient-4: linear-gradient(135deg, #667eea 0%, #0021b4 100%);
+            --gradient-5: linear-gradient(135deg, #667eea 0%, #0021b4 100%);
+        }
+
+        /* Copy ALL the remaining CSS styles from your main page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Continue copying ALL CSS styles from your main page... */
+        /* ... (copy everything from your CSS section) ... */
+
+        /* Case Study Specific Styles */
+        .case-study-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .case-study-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+        }
+
+        .content-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-dark);
+        }
+
+        .content-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-content">
+            <div class="logo">
+                <span class="logo-icon">🌹</span>
+                <span>Rose Mary</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Case Study Hero -->
+    <section class="case-study-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <a href="index.html#projects" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Projects
+                </a>
+                <div class="hero-badge">✨ Case Study</div>
+                <h1 class="hero-title">
+                    SOLVA - <span class="hero-gradient-text">Mental Health & Wellness App</span>
+                </h1>
+                <p class="hero-subtitle">
+                    A comprehensive mobile application designed to connect users with verified therapists 
+                    and provide essential tools for mental wellness tracking.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study Content -->
+    <section class="case-study-content">
+        <div class="content-grid">
+            <div class="content-text">
+                <h3>Project Overview</h3>
+                <p>
+                    SOLVA is a mental health and wellness app designed to provide users with accessible 
+                    mental health support through verified therapists and comprehensive wellness tracking tools. 
+                    The project focused on creating an intuitive, calming, and accessible user experience.
+                </p>
+
+                <h3>Design Process</h3>
+                <p>
+                    The design process began with extensive user research to understand the needs and pain points 
+                    of individuals seeking mental health support. We conducted interviews, created user personas, 
+                    and developed user journeys to ensure the app met real user needs.
+                </p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Therapist matching and booking system</li>
+                    <li>Mood tracking and journaling</li>
+                    <li>Meditation and mindfulness exercises</li>
+                    <li>Progress tracking and insights</li>
+                    <li>Secure messaging with therapists</li>
+                </ul>
+
+                <h3>Challenges & Solutions</h3>
+                <p>
+                    One of the main challenges was creating a design that felt both professional and comforting. 
+                    We achieved this through a carefully selected color palette, intuitive navigation, and 
+                    accessibility-focused design principles.
+                </p>
+            </div>
+
+            <div class="content-images">
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="SOLVA App Design">
+                </div>
+                <div class="content-image" style="margin-top: 2rem;">
+                    <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="User Interface">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/rose-mary-16729431b" target="_blank" class="social-link" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:rosemarymathew497@gmail.com" class="social-link" title="Email">
+                <i class="far fa-envelope"></i>
+            </a>
+            <a href="tel:9526220906" class="social-link" title="Phone">
+                <i class="fas fa-phone"></i>
+            </a>
+        </div>
+        <p style="color: var(--text-medium); margin-bottom: 1rem; font-size: 1.1rem;">
+            © 2025 Rose Mary. All rights reserved.
+        </p>
+    </footer>
+
+    <script>
+        // Copy the JavaScript from your main page here
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Add navigation background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'var(--glass-bg)';
+                nav.style.backdropFilter = 'blur(20px)';
+                nav.style.border = '1px solid var(--glass-border)';
+                nav.style.borderRadius = '50px';
+                nav.style.padding = '0.5rem 1rem';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.backdropFilter = 'none';
+                nav.style.border = 'none';
+                nav.style.padding = '0';
+            }
+        });
+    </script>
+</body>
+</html>
